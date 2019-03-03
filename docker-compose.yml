@@ -1,0 +1,42 @@
+version: '3.5'
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:alpine
+    command: --docker # Enables the web UI and tells Traefik to listen to docker
+    restart: always
+    networks:
+      - proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+      - $PWD/traefik.toml:/traefik.toml
+      - $PWD/acme.json:/acme.json
+    labels:
+      - 'traefik.frontend.rule=Host:traefik-dev2.recursiveturtle.com'
+      - 'traefik.port=8080'
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    restart: always
+    networks:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    labels:
+      - 'traefik.backend=portainer'
+      - 'traefik.frontend.rule=Host:dockermon-dev2.recursiveturtle.com'
+      - 'traefik.docker.network=proxy'
+      - 'traefik.port=9000'
+
+volumes:
+  portainer_data:
+    name: portainer_data
+
+networks:
+  proxy:
+    name: proxy
