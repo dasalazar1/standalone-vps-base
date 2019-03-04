@@ -13,11 +13,13 @@ htpasswd -nb admin <<secure_password>>
 
 Fill out the rest of the .env.sample file
 
+```
 DOMAIN=<<domain of site>>
 TRAEFIK=<<third level domain for traefik>>
 PORTAINER=<<third level domain for portainer>>
 EMAIL=<<your email>>
 ADMIN=<<result of password from htpasswd command>>
+```
   
 Run the config script.
 ```bash
