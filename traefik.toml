@@ -11,13 +11,13 @@ defaultEntryPoints = ["http", "https"]
    [entryPoints.traefik]
       address = ":8080"
       [entryPoints.traefik.auth.basic]
-      users = ["admin:$apr1$6nADM6AE$Fch5GK2iyOW98DFFh7aLO0"]
+      users = ["ADMIN"]
 
 [api]
   entryPoint = "traefik"
 
 [acme]
-email = "dasalazar1@gmail.com"
+email = "EMAIL"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true
