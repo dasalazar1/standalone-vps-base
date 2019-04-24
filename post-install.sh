@@ -19,7 +19,12 @@ unzip Monoid.zip -d ~/.fonts
 rm Monoid.zip
 fc-cache -f -v
 
-sudo npm i -g vtop
+# gotop
+git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop
+/tmp/gotop/scripts/download.sh
+sudo mv gotop /usr/local/bin
+
+# colorls
 sudo gem install colorls
 source $(dirname $(gem which colorls))/tab_complete.sh
 
